@@ -4,7 +4,7 @@
 Plugin Name: Always Edit in HTML
 Plugin URI: http://www.gravitationalfx.com/always-edit-in-html-wordpress-plugin
 Description: Opens page and post editor in HTML mode to preserve formatting.
-Version: 1.0
+Version: 1.1
 Author: Gravitational FX
 Author URI: http://www.gravitationalfx.com/always-edit-in-html-wordpress-plugin/
 
@@ -85,7 +85,6 @@ function getHTMLEditStatus($id){
 	else{
 		return false;
 	}
-
 }
 
 // Save the Always Edit in HTML options along with the post update
@@ -128,5 +127,4 @@ function always_edit_in_html_save_postdata($post_id){
 	// returns update status to allow for future checcks
 	return $updateStatus;	
 }
-
 ?>

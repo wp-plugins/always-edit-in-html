@@ -61,3 +61,6 @@ Nope.
 
 = 1.0 =
 * Initial release.
+
+= 1.1 =
+* Tested with 3.4 (beta 4).
