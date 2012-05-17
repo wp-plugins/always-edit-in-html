@@ -8,7 +8,7 @@ Version: 1.0
 Author: Gravitational FX
 Author URI: http://www.gravitationalfx.com/always-edit-in-html-wordpress-plugin/
 
-    Copyright © 2011 Gravitational FX.  www.gravitationalfx.com
+    Copyright © 2012 Gravitational FX.  www.gravitationalfx.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
