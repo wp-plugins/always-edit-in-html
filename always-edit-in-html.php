@@ -2,13 +2,13 @@
 
 /*
 Plugin Name: Always Edit in HTML
-Plugin URI: http://www.gravitationalfx.com/always-edit-in-html-wordpress-plugin
+Plugin URI: http://www.limecanvas.com/wordpress-plugins/always-edit-in-html-wordpress-plugin/
 Description: Opens page and post editor in HTML mode to preserve formatting.
-Version: 1.1
-Author: Gravitational FX
-Author URI: http://www.gravitationalfx.com/always-edit-in-html-wordpress-plugin/
+Version: 1.2
+Author: Lime Canvas
+Author URI: http://www.limecanvas.com/author/wil/
 
-    Copyright © 2012 Gravitational FX.  www.gravitationalfx.com
+    Copyright © 2013 Lime Canvas Ltd.  www.limecanvas.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,62 +24,82 @@ Author URI: http://www.gravitationalfx.com/always-edit-in-html-wordpress-plugin/
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
+global $post;
 
+/**
+ * Add language options
+ */
+load_plugin_textdomain( 'always-edit-in-html', false, basename( dirname( __FILE__ ) ) . '/lang' );
 
 // Add acctions for adding to post/page and saving the option
-add_action('admin_init','always_edit_in_html_create_options_box');
-add_action('admin_head','always_edit_in_html_handler');
-add_action('save_post','always_edit_in_html_save_postdata');
+add_action( 'admin_init', 'always_edit_in_html_create_options_box' );
+add_action( 'admin_head', 'always_edit_in_html_handler' );
+add_action( 'save_post', 'always_edit_in_html_save_postdata', $post );
 
 
-// Turn off the rich editing capability
-// Effectively removed the "Visual" and "HTML" tabs leaving a plain editor.
+/**
+ * Turn off the rich editing capability
+ * 
+ * Removes the tab that switches to the visual editor
+ */
 function always_edit_in_html_handler(){
 	global $post;
-	$editInHTML = getHTMLEditStatus($post->ID);
-	if ($editInHTML){
-    	add_filter('user_can_richedit',create_function(null,'return false;'),50);
+	
+	// Get the meta value and check that it's switched on
+	$editInHTML = getHTMLEditStatus( $post->ID );
+	if ( $editInHTML ){
+		// Hide "Visual" tab
+		echo '<style>';
+		echo 'a#content-tmce.wp-switch-editor.switch-tmce{display:none;}';
+		echo '</style>';
 	}
 }
 
-// Adds the option box to Pages and Posts in the RHS column
+/**
+ * Adds the option box to Pages and Posts in the RHS column
+ */
 function always_edit_in_html_create_options_box(){
-    add_meta_box('always-edit-in-html',__( 'Always edit in HTML','myplugin_textdomain' ), 
+    add_meta_box( 'always-edit-in-html', __( 'Always edit in HTML', 'always-edit-in-html' ), 
 					'always_edit_in_html_custom_box', 'page' , 'side');
-    add_meta_box('always-edit-in-html',__( 'Always edit in HTML','myplugin_textdomain' ),
+    add_meta_box( 'always-edit-in-html', __( 'Always edit in HTML', 'always-edit-in-html' ),
 					'always_edit_in_html_custom_box','post','side');
 }
 
 
 
-// Creates the Edit in HTML options box
-function always_edit_in_html_custom_box($post){
+/**
+ * Creates the Edit in HTML options box on post/page
+ */
+function always_edit_in_html_custom_box( $post ){
 	
 	// Check that data is from this post
-	wp_nonce_field(plugin_basename(__FILE__),'always_edit_in_html_noncename');
+	wp_nonce_field( plugin_basename( __FILE__ ), 'always_edit_in_html_noncename' );
 	
 	// Get the current status for this post
-	$editInHTML=getHTMLEditStatus($post->ID);
+	$editInHTML = getHTMLEditStatus( $post->ID );
 	
 	// Create the form  with the options field and brief explaination of what it does.
-	echo '<p>Removes the Visual and HTML editor tabs and opens this page/post in HTML mode.</p>';
-	echo '<label for="always_edit_in_html">'.__("Always edit in HTML?",'myplugin_textdomain').'</label> ';
+	echo '<p>'.__( 'Removes the Visual and HTML editor tabs and opens this page/post in HTML mode', 'always-edit-in-html' ).'</p>';
+	echo '<label for="always_edit_in_html">'.__( 'Always edit in HTML?', 'always-edit-in-html' ).'</label> ';
 	echo '<input type="checkbox" id="always_edit_in_html" name="always_edit_in_html" value="on" ';
 	
 	// If the option is currently being used then check the options box
-	if ($editInHTML){
+	if ( $editInHTML ){
 		echo 'checked="checked"';
 	}
 	echo ' />';
 }
 
 
-// Grabs the Always Edit in HTML option field and checks to see if it's set
-// Return true for being used (on) and false for unset (off)
-function getHTMLEditStatus($id){
-	$editInHTML=get_post_meta($id,"editInHTML",true);
+/**
+ * Grabs the Always Edit in HTML option field and checks to see if it's set
+ *
+ * @return bool
+ */
+function getHTMLEditStatus( $id ){
+	$editInHTML=get_post_meta( $id, 'editInHTML', true);
 
-	if($editInHTML=="on"){
+	if( $editInHTML === "on" ){
 		return true;
 	}
 	else{
@@ -87,44 +107,46 @@ function getHTMLEditStatus($id){
 	}
 }
 
-// Save the Always Edit in HTML options along with the post update
-function always_edit_in_html_save_postdata($post_id){
+/**
+ * Save the Always Edit in HTML options along with the post update
+ */
+function always_edit_in_html_save_postdata( $post_id ){
 	//assume data hasn't been saved
-	$updateStaus=false;
+	$updateStaus = false ;
 	
 	// Quick check to make sure data belongs to this post
-	if(!wp_verify_nonce($_POST['always_edit_in_html_noncename'],plugin_basename(__FILE__))){
+	if( !wp_verify_nonce( $_POST['always_edit_in_html_noncename'], plugin_basename( __FILE__ ) ) ){
 		return $post_id;
 	}
 	
 	// Don't do anything for an autosave
-	if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){	
+	if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ){	
 		return $post_id;
 	}
 	
-	// Make aure we have the permissions to update a post or page
-	if('page'==$_POST['post_type']){	
-		if(!current_user_can('edit_page',$post_id)){
+	// Make sure we have the permissions to update a post or page
+	if( 'page' === $_POST['post_type'] ){	
+		if( !current_user_can( 'edit_page', $post_id ) ){
 		  return $post_id;
 		}	
 	}
 	else{
-		if(!current_user_can('edit_post',$post_id)){	
+		if( !current_user_can( 'edit_post', $post_id ) ){	
 			return $post_id;
 		}
 	}
 
 	// Checks all done so save the option
-	if(isset($_POST['always_edit_in_html'])){
-		update_post_meta($post_id,'editInHTML','on');
-		$updateStatus=tue;
+	if( isset( $_POST['always_edit_in_html'] ) ){
+		update_post_meta( $post_id, 'editInHTML', 'on' );
+		$updateStatus = true;
 	}
 	else{
-		update_post_meta($post_id,'editInHTML','off');
-		$updateStatus=true;
+		update_post_meta( $post_id, 'editInHTML', 'off' );
+		$updateStatus = true;
 	}
 	
-	// returns update status to allow for future checcks
+	// Returns update status to allow for future checcks
 	return $updateStatus;	
 }
 ?>
