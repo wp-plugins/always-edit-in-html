@@ -55,7 +55,7 @@ Nope.
 == Screenshots ==
 
 1. Always edit in HTML options box.  Check to turn on.
-2. Option turned on and page/post is in HTML mode.  Visual and HTML tabs removed.
+2. Option turned on and page/post is in HTML mode.  Visual tab removed.
 
 == Changelog ==
 
