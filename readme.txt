@@ -55,7 +55,7 @@ Nope.
 == Screenshots ==
 
 1. Always edit in HTML options box.  Check to turn on.
-2. Option turned on and page/post is in HTML mode.  Visual tab removed.
+2. Option turned on and page/post is in HTML mode.  Visual and HTML tabs removed.
 
 == Changelog ==
 
@@ -69,3 +69,6 @@ Nope.
 * Tested with 3.5.1
 * Now works with textarea HTML attribute
 * Added language support
+
+= 1.3 =
+* Fixed the bug that opened the window in Visual mode even though the tab was missing - doh!

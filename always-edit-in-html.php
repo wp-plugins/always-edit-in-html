@@ -4,7 +4,7 @@
 Plugin Name: Always Edit in HTML
 Plugin URI: http://www.limecanvas.com/wordpress-plugins/always-edit-in-html-wordpress-plugin/
 Description: Opens page and post editor in HTML mode to preserve formatting.
-Version: 1.2
+Version: 1.3
 Author: Lime Canvas
 Author URI: http://www.limecanvas.com/author/wil/
 
@@ -49,7 +49,7 @@ function always_edit_in_html_handler(){
 	echo '#always-edit-in-html .inside{background: url('.plugins_url( '/images/lime-canvas-mark.png', __FILE__ ).') no-repeat top right;padding-right:55px;}';
 	echo '</style>';
 
-	
+
 	// Get the meta value and check that it's switched on
 	$editInHTML = getHTMLEditStatus( $post->ID );
 	if ( $editInHTML ){
@@ -57,6 +57,9 @@ function always_edit_in_html_handler(){
 		echo '<style type="text/css">';
 		echo 'a#content-tmce.wp-switch-editor.switch-tmce{display:none;}';
 		echo '</style>';
+		
+		// Set the editor to HTML ("Text")
+		add_filter( 'wp_default_editor', create_function(null,'return "html";') );
 	}
 }
 
@@ -64,11 +67,13 @@ function always_edit_in_html_handler(){
  * Adds the option box to Pages and Posts in the RHS column
  */
 function always_edit_in_html_create_options_box(){
+	global $post;
     add_meta_box( 'always-edit-in-html', __( 'Always edit in HTML', 'always-edit-in-html' ), 
 					'always_edit_in_html_custom_box', 'page' , 'side');
     add_meta_box( 'always-edit-in-html', __( 'Always edit in HTML', 'always-edit-in-html' ),
 					'always_edit_in_html_custom_box','post','side');
 }
+
 
 
 
@@ -116,9 +121,6 @@ function getHTMLEditStatus( $id ){
  * Save the Always Edit in HTML options along with the post update
  */
 function always_edit_in_html_save_postdata( $post_id ){
-	//assume data hasn't been saved
-	$updateStaus = false ;
-	
 	// Quick check to make sure data belongs to this post
 	if( !wp_verify_nonce( $_POST['always_edit_in_html_noncename'], plugin_basename( __FILE__ ) ) ){
 		return $post_id;
@@ -144,14 +146,12 @@ function always_edit_in_html_save_postdata( $post_id ){
 	// Checks all done so save the option
 	if( isset( $_POST['always_edit_in_html'] ) ){
 		update_post_meta( $post_id, 'editInHTML', 'on' );
-		$updateStatus = true;
 	}
 	else{
 		update_post_meta( $post_id, 'editInHTML', 'off' );
-		$updateStatus = true;
 	}
 	
-	// Returns update status to allow for future checcks
-	return $updateStatus;	
+	// Returns $post_id to preserve other filters
+	return $post_id	;
 }
 ?>
