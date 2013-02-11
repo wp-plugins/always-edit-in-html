@@ -44,12 +44,17 @@ add_action( 'save_post', 'always_edit_in_html_save_postdata', $post );
  */
 function always_edit_in_html_handler(){
 	global $post;
+
+	echo '<style type="text/css">';
+	echo '#always-edit-in-html .inside{background: url('.plugins_url( '/images/lime-canvas-mark.png', __FILE__ ).') no-repeat top right;padding-right:55px;}';
+	echo '</style>';
+
 	
 	// Get the meta value and check that it's switched on
 	$editInHTML = getHTMLEditStatus( $post->ID );
 	if ( $editInHTML ){
 		// Hide "Visual" tab
-		echo '<style>';
+		echo '<style type="text/css">';
 		echo 'a#content-tmce.wp-switch-editor.switch-tmce{display:none;}';
 		echo '</style>';
 	}
