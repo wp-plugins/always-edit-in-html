@@ -3,7 +3,7 @@ Contributors: gravitationalfx, limecanvas
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YQGF2CP3PQGGA
 Tags: HTML edit,always edit in HTML,HTML Tab,HTML Mode,HTML page,HTML post,edit page in HTML,edit post in HTML
 Requires at least: 2.8
-Tested up to: 3.5.1
+Tested up to: 3.9 RC1
 Stable tag: trunk
 
 Always opens up a specific page or post in HTML mode to preserve HTML code.
