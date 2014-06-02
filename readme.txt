@@ -3,7 +3,7 @@ Contributors: gravitationalfx, limecanvas
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YQGF2CP3PQGGA
 Tags: HTML edit,always edit in HTML,HTML Tab,HTML Mode,HTML page,HTML post,edit page in HTML,edit post in HTML
 Requires at least: 2.8
-Tested up to: 3.9 RC1
+Tested up to: 3.9.1
 Stable tag: trunk
 
 Always opens up a specific page or post in HTML mode to preserve HTML code.
@@ -72,3 +72,11 @@ Nope.
 
 = 1.3 =
 * Fixed the bug that opened the window in Visual mode even though the tab was missing - doh!
+
+= 1.3 =
+* Checked compatibility with 3.9 RC1
+
+= 1.4 =
+* Checks to make sure we're in the backend Dashboard
+* Checks to make sure the global $post is set
+* Checked compatibility with 3.9.1

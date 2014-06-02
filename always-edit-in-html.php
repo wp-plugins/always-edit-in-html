@@ -31,10 +31,12 @@ global $post;
  */
 load_plugin_textdomain( 'always-edit-in-html', false, basename( dirname( __FILE__ ) ) . '/lang' );
 
-// Add acctions for adding to post/page and saving the option
-add_action( 'admin_init', 'always_edit_in_html_create_options_box' );
-add_action( 'admin_head', 'always_edit_in_html_handler' );
-add_action( 'save_post', 'always_edit_in_html_save_postdata', $post );
+// Add actions for adding to post/page and saving the option
+if ( is_admin() ){
+    add_action( 'admin_init', 'always_edit_in_html_create_options_box' );
+    add_action( 'admin_head', 'always_edit_in_html_handler' );
+    add_action( 'save_post', 'always_edit_in_html_save_postdata', $post );
+}
 
 
 /**
@@ -44,6 +46,9 @@ add_action( 'save_post', 'always_edit_in_html_save_postdata', $post );
  */
 function always_edit_in_html_handler(){
 	global $post;
+
+    // Check that we have a post object here, else return
+    if( $post == null ) return;
 
 	echo '<style type="text/css">';
 	echo '#always-edit-in-html .inside{background: url('.plugins_url( '/images/lime-canvas-mark.png', __FILE__ ).') no-repeat top right;padding-right:55px;}';
