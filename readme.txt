@@ -3,7 +3,7 @@ Contributors: gravitationalfx, limecanvas
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YQGF2CP3PQGGA
 Tags: HTML edit,always edit in HTML,HTML Tab,HTML Mode,HTML page,HTML post,edit page in HTML,edit post in HTML
 Requires at least: 2.8
-Tested up to: 3.9.1
+Tested up to: 4.0
 Stable tag: trunk
 
 Always opens up a specific page or post in HTML mode to preserve HTML code.
@@ -58,25 +58,26 @@ Nope.
 2. Option turned on and page/post is in HTML mode.  Visual and HTML tabs removed.
 
 == Changelog ==
+= 1.5 =
+* Checked compatibility with 4.0
+* Changed getHTMLEditStatus() function name to always_edit_in_html_get_html_edit_status()
 
-= 1.0 =
-* Initial release.
+= 1.4 =
+* Checks to make sure we're in the backend Dashboard
+* Checks to make sure the global $post is set
+* Checked compatibility with 3.9.1
 
-= 1.1 =
-* Tested with 3.4 (beta 4).
+= 1.3 =
+* Fixed the bug that opened the window in Visual mode even though the tab was missing - doh!
+* Checked compatibility with 3.9 RC1
 
 = 1.2 =
 * Tested with 3.5.1
 * Now works with textarea HTML attribute
 * Added language support
 
-= 1.3 =
-* Fixed the bug that opened the window in Visual mode even though the tab was missing - doh!
+= 1.1 =
+* Tested with 3.4 (beta 4).
 
-= 1.3 =
-* Checked compatibility with 3.9 RC1
-
-= 1.4 =
-* Checks to make sure we're in the backend Dashboard
-* Checks to make sure the global $post is set
-* Checked compatibility with 3.9.1
+= 1.0 =
+* Initial release.

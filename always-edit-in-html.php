@@ -4,7 +4,7 @@
 Plugin Name: Always Edit in HTML
 Plugin URI: http://www.limecanvas.com/wordpress-plugins/always-edit-in-html-wordpress-plugin/
 Description: Opens page and post editor in HTML mode to preserve formatting.
-Version: 1.4
+Version: 1.5
 Author: Lime Canvas
 Author URI: http://www.limecanvas.com/author/wil/
 
@@ -56,7 +56,7 @@ function always_edit_in_html_handler(){
 
 
 	// Get the meta value and check that it's switched on
-	$editInHTML = getHTMLEditStatus( $post->ID );
+	$editInHTML = always_edit_in_html_get_html_edit_status( $post->ID );
 	if ( $editInHTML ){
 		// Hide "Visual" tab
 		echo '<style type="text/css">';
@@ -80,10 +80,10 @@ function always_edit_in_html_create_options_box(){
 }
 
 
-
-
 /**
  * Creates the Edit in HTML options box on post/page
+ *
+ * @param $post
  */
 function always_edit_in_html_custom_box( $post ){
 	
@@ -91,7 +91,7 @@ function always_edit_in_html_custom_box( $post ){
 	wp_nonce_field( plugin_basename( __FILE__ ), 'always_edit_in_html_noncename' );
 	
 	// Get the current status for this post
-	$editInHTML = getHTMLEditStatus( $post->ID );
+	$editInHTML = always_edit_in_html_get_html_edit_status( $post->ID );
 	
 	// Create the form  with the options field and brief explaination of what it does.
 	echo '<p>'.__( 'Removes the Visual and HTML editor tabs and opens this page/post in HTML mode', 'always-edit-in-html' ).'</p>';
@@ -105,13 +105,13 @@ function always_edit_in_html_custom_box( $post ){
 	echo ' />';
 }
 
-
 /**
  * Grabs the Always Edit in HTML option field and checks to see if it's set
  *
+ * @param $id
  * @return bool
  */
-function getHTMLEditStatus( $id ){
+function always_edit_in_html_get_html_edit_status( $id ){
 	$editInHTML=get_post_meta( $id, 'editInHTML', true);
 
 	if( $editInHTML === "on" ){
@@ -124,6 +124,9 @@ function getHTMLEditStatus( $id ){
 
 /**
  * Save the Always Edit in HTML options along with the post update
+ *
+ * @param $post_id
+ * @return mixed
  */
 function always_edit_in_html_save_postdata( $post_id ){
 	// Quick check to make sure data belongs to this post
