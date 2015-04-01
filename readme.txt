@@ -58,6 +58,10 @@ Nope.
 2. Option turned on and page/post is in HTML mode.  Visual and HTML tabs removed.
 
 == Changelog ==
+= 1.7 =
+* Checked compatibility with 4.1.1
+* Modified to work with UI changes from 4.1
+
 = 1.6 =
 * Checked compatibility with 4.1
 * Added asset icon

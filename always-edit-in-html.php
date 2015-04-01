@@ -4,7 +4,7 @@
 Plugin Name: Always Edit in HTML
 Plugin URI: http://www.limecanvas.com/wordpress-plugins/always-edit-in-html-wordpress-plugin/
 Description: Opens page and post editor in HTML mode to preserve formatting.
-Version: 1.6
+Version: 1.7
 Author: Lime Canvas
 Author URI: http://www.limecanvas.com/author/wil/
 
@@ -60,7 +60,7 @@ function always_edit_in_html_handler(){
 	if ( $editInHTML ){
 		// Hide "Visual" tab
 		echo '<style type="text/css">';
-		echo 'a#content-tmce.wp-switch-editor.switch-tmce{display:none;}';
+		echo '#content-tmce.wp-switch-editor.switch-tmce{display:none;}';
 		echo '</style>';
 		
 		// Set the editor to HTML ("Text")
