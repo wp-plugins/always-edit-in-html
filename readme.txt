@@ -38,7 +38,7 @@ Ta da!  Here's one.
 2. Copy the folder always-edit-in-html into the directory /wp-content/plugins/ 
 3. Activate the plugin through the 'Plugins' menu in WordPress
 
-Open up a page or post and you will now see the "Always Edit In HTML" option box on the right column.
+Open up a page, post or publicly declared custom post type and you will now see the "Always Edit In HTML" option box on the right column.
 
 Check the option and save.
 
@@ -55,9 +55,14 @@ Nope.
 == Screenshots ==
 
 1. Always edit in HTML options box.  Check to turn on.
-2. Option turned on and page/post is in HTML mode.  Visual and HTML tabs removed.
+2. Option turned on and page/post is in HTML mode.  Visual and Text tabs removed.
 
 == Changelog ==
+= 1.8 =
+* Checked compatibility with 4.2.2
+* Changed some mentions of "HTML" to "Text" for the reference to the editor tabs.
+* Now supports any publicly declared custom post types
+
 = 1.7 =
 * Checked compatibility with 4.1.1
 * Modified to work with UI changes from 4.1
